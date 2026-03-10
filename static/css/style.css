@@ -1,0 +1,1639 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+html { 
+    font-size: 16px; 
+    scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #181926;
+    color: #F2F2F2;
+    font-family: 'Pangolin', cursive, Georgia, 'Times New Roman', Times, serif;
+}
+
+a { 
+    text-decoration: none;
+    color: #F2F2F2;
+}
+
+li {
+    list-style-type: none;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+
+header {
+    position: sticky;
+    top: 0;
+    background-color: #181926;
+    z-index: 10;
+}
+
+header .limitador {
+    height: 12vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav h2 img {
+    width: 30px;
+    display: inline-block;
+}
+
+header .logo {
+    margin-top: 6px;
+}
+
+header nav .container-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 13px;
+}
+
+.hidden {
+    display: none;
+}
+
+header nav button {
+    margin-top: 4px;
+    width: 120px;
+    height: 38px;
+}
+
+header nav .login {
+    background-color: #73071B;
+    border-radius: 6px;
+    border: none;
+    color: #F2F2F2;
+}
+
+header nav .register {
+    background: transparent;
+    border-radius: 6px;
+    border: none;
+    border: #73071B solid 2px;
+    color: #F2F2F2;
+}
+
+.menu { 
+    list-style: none; 
+    display: none;
+}
+
+.menu a {
+    font-family: 'Poppins', sans-serif, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #F2F2F2;
+    font-weight: bold;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu.aberto {
+    display: flex;
+    flex-direction: column;
+    background-color: #181926;
+    position: absolute;
+    right: 0;
+    left: 0;
+}
+
+/* MODAL CAR */
+.container-car {
+    width: 70%;
+    margin: 0 auto;
+    padding: 0 16px
+  }
+  
+  .section-title {
+    font-size: 32px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  /* TABLE CAR */
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-head-item {
+    text-align: start;
+    border-bottom: 1px solid #F2B035;
+    padding-bottom: 9px;
+  }
+  
+  .second-col,
+  .third-col {
+    width: 26%;
+  }
+  
+  .cart-product td {
+    padding: 8px 0;
+  }
+  
+  .product-identification {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cart-product-image {
+    width: 120px;
+  }
+  
+  .cart-product-title {
+    margin-left: 16px;
+    font-size: 18px;
+  }
+  
+  .product-qtd-input {
+    width: 40px;
+    height: 34px;
+    border-radius: 6px;
+    border: 2px solid #F2B035;
+    text-align: center;
+    background: grey;
+    color: #f2f2f2;
+  }
+  
+  .remove-product-button {
+    margin-left: 12px;
+    background: #D9072D;
+    color: #f2f2f2;
+    padding: 10px 8px;
+    border: 0;
+    border-radius: 6px;
+  }
+  
+  .remove-product-button:hover {
+    filter: brightness(0.8);
+  }
+  
+  .cart-total-container {
+    border-top: 1px solid #F2B035;
+    text-align: end;
+    padding: 10px 16px 0 0;
+    font-size: 15px;
+  }
+  
+  .cart-total-container strong {
+    margin-right: 12px;
+  }
+  
+  .purchase-button {
+    display: flex;
+    margin: 20px auto 0;
+    background: #73071B;
+    color: #f2f2f2;
+    border: 0;
+    border-radius: 6px;
+    padding-top: 14px;
+    padding-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    transition: filter 0.2s;
+  }
+
+/* GENERAL MODAL */
+.cta{
+    display:inline-block;
+    font-size: 1em;
+    font-weight: 700;
+    text-decoration:none; 
+  }
+  
+  /* Modal */
+  .modaloverlay{
+  background:rgba(0,0,0,0.8);
+  bottom:0;
+  left:0;
+  opacity:0;
+  pointer-events:none;
+  position:fixed;
+  right:0;
+  top:0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  z-index:-1;
+  display: none;
+  &:target{
+    display: block;
+    opacity:1;
+    pointer-events:auto;
+    z-index:99999;
+  }
+  .modal{
+    background-color:#181926;
+    color: #F2F2F2;
+    height: 100%;
+    position:relative;
+    margin:0 auto;
+    padding:3em;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    @media (min-width: 60em) {
+      height:75%;
+     margin:5% auto;
+     max-height: 57em;
+      max-width:66em;
+      width:85%;
+    }
+  > iframe, > div{
+    border:none;
+    width:100%;
+    height:100%;
+    }
+  }
+  .close{
+    background-color: #F2B035;
+    color: #F2F2F2;
+    font-size:24px;
+    padding:8px 12px;
+    position:absolute;
+    right:0;
+    text-align:center;
+    text-decoration:none;
+    top:0;
+    z-index: 1;
+  }
+  }
+
+/* HOME */
+#highlight-home {
+    background: url(../img/destaque-home.jpg) center center no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+}
+
+#highlight-home h1 {
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+#highlight-home h1 span {
+    color: #73071B;
+    font-weight: 900;
+}
+
+#highlight-home button {
+    background-color: #73071B;
+    border: none;
+    color: #F2F2F2;
+    font-weight: 600;
+    width: 180px;
+    height: 40px;
+    border-radius: 6px;
+}
+
+/* FOOD MENU */
+.food-menu {
+    background: url(../img/fundo-categorias_redes.jpg) center center no-repeat;
+    background-size: cover;
+}
+
+.food-menu h3 {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 20px;
+}
+
+.food-menu .menu-alignment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+}
+
+.icons-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 8px;
+}
+
+/* QUALITY AND DELIVERY */
+/* H2 AND SPAN */
+
+#container-quality {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 40px 0;
+}
+
+#container-delivery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+#container-quality img, #container-delivery .deliveryman {
+    width: 350px;
+    margin-bottom: 25px;
+}
+
+#container-quality h2, #container-delivery h2, #container-application h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+span {
+    color: #F2B035;
+}
+
+#container-quality p, #container-history p {
+    width: 360px;
+    margin: 0 30px;
+}
+
+.icons-delivery {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.icons-delivery img {
+    width: 40px;
+}
+
+/* PIZZAS POPULAR, CANDYS POPULAR, PIZZAS, DRINKS AND CANDYS  */
+.pizzas-popular, .candy-popular, .pizzas, .drinks, .candys {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#highlight-pizzas {
+    background: url(../img/destaque-pizzas.jpg) center center no-repeat;
+    background-size: cover;
+    height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#highlight-drinks {
+    background: url(../img/destaque-bebidas.jpg) center center no-repeat;
+    background-size: cover;
+    height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#highlight-candys {
+    background: url(../img/destaque-doces.jpg) center center no-repeat;
+    background-size: cover;
+    height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container-pizzas, #container-drinks {
+    margin: 30px 0;
+}
+
+#container-pizzas-popular h2, #container-candy-popular h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.pizza-box, .candy-box, .pizzas-box, .drinks-box, .candys-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 260px;
+    padding: 30px 35px;
+    margin-bottom: 22px;
+}
+
+.pizza-box:hover, .candy-box:hover, .pizzas-box:hover, .drinks-box:hover, .candys-box:hover {
+    border: 1px solid #90909059;
+}
+
+.title-categories {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 200px;
+    margin-top: 15px;
+}
+
+.pizza-box p, .candy-box p, .pizzas-box p, .drinks-box p, .candys-box {
+    text-align: left;
+    margin: 15px 0;
+    margin-left: 27px;
+    width: 230px;
+}
+
+.pizza-box button, .candy-box button, .pizzas-box button, .drinks-box button, .candys-box button, #container-name button {
+    background-color: #73071B;
+    color: #F2F2F2;
+    font-family: 'Pangolin', cursive, Georgia, 'Times New Roman', Times, serif;
+    width: 160px;
+    height: 38px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 12px;
+}
+
+/* APPLICATION */
+#container-application {
+    background: url(../img/fundo-app.jpg) center center no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 40px 0;
+    padding: 10px;
+}
+
+#container-application .screen {
+    width: 380px;
+    margin: 12px 0;
+}
+
+#container-application p  {
+    width: 360px;
+    margin: 0 25px;
+}
+
+#container-application h6 {
+    font-size: 0.9rem;
+    margin-top: 12px;
+    margin-left: 22px;
+}
+
+/* CONTACT */
+#container-contact .contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 40px 0;
+    gap: 20px;
+}
+
+#container-contact h2, #container-feedback h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.4rem;
+}
+
+.icons-contact {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.icons-contact img {
+    width: 110px;
+}
+
+/* FEEDBACKS */
+#container-feedback .feedbacks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.feedback-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+    border-radius: 5px;
+    background-color: #171931;
+    box-shadow: #F2F2F2 0 0 5px;
+    width: 320px;
+}
+
+.feedback-box .icon-perfil {
+    margin-top: 25px;
+    width: 110px;
+}
+
+.feedback-box h4 {
+    font-size: 1.3rem;
+}
+
+.feedback-box p {
+    max-width: 280px;
+    margin-bottom: 30px;
+}
+
+/* ABOUT US */
+
+/* TEAM AND ASSEMBLE */
+#highlight-aboutUs {
+    background: url(../img/destaque-sobre.jpg) center center no-repeat;
+    background-size: cover;
+    height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#highlight-aboutUs h1, #highlight-assemble h1, #highlight-pizzas h1,  #highlight-drinks h1, #highlight-candys h1, #highlight-requests h1   {
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+#container-team h2, #container-pasta h2, #container-sauces h2, #container-fillings h2, #container-name h2, #container-rules h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 30px 0;
+}
+
+#container-rules h4 {
+    text-align: center;
+    margin: 15px 0;
+}
+
+#container-rules img {
+    width: 50px;
+}
+
+.team {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.cards-team {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#container-team img {
+    width: 230px;
+}
+
+/* HISTORY */
+#container-history {
+    margin: 40px 0;
+}
+
+.history {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#container-history img {
+    width: 330px;
+}
+
+#container-history h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+/* ASSEMBLE PIZZA */
+#highlight-assemble  {
+    background: url(../img/destaque-monte-sua-pizza.jpg) center center no-repeat;
+    background-size: cover;
+    height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rules p {
+    margin: 0 auto;
+    width: 370px;
+}
+
+#container-fillings h3 {
+    text-align: center;
+    font-size: 1.3rem;
+    margin: 15px 0;
+}
+
+.pasta, .sauces, .fillings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.produto {
+    border: 1px solid transparent;
+}
+
+.selected {
+    border: 1px solid #f9ca24;
+}
+
+.name form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.name form label {
+    margin-right: 220px;
+    margin-bottom: 8px;
+}
+
+.name form input {
+    background: transparent;
+    border: none;
+    border: 1px solid #F2B035;
+    color: #F2F2F2;
+    font-family: 'Pangolin', cursive, Georgia, 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    border-radius: 10px;
+    width: 350px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.name p {
+    max-width: 664px;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.size-pasta, .types-sauces, .types-fillings, .types-fillings-candy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0px;
+}
+
+/* LOGIN AND REGISTER */
+#container-login {
+    background: url(../img/destaque-login.jpg) center center no-repeat;
+    background-size: cover;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#container-register {
+    background: url(../img/destaque-cadastro.jpg) center center no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#container-login h1, #container-register h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+.login-page, .register-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #1819268f;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(1px);
+    border: 1px solid #181926a1;
+    max-width: 390px;
+    padding: 25px 15px;
+}
+
+.feedback-login-and-register {
+    background-color: #f2b035b0;
+    font-weight: bold;
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 12px;
+}
+
+.alignment-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#cep-register, #complemento-register, #email-register, #senha-register{
+    background: #181926;
+    border: none;
+    border: 1px solid #F2B035;
+    color: #F2F2F2;
+    font-family: 'Pangolin', cursive, Georgia, 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    border-radius: 10px;
+    width: 160px;
+    height: 33px;
+    margin-bottom: 12px;
+}
+
+.cep-and-cmp, .email-and-password {
+    display: flex;
+    gap: 25px;
+}
+
+.login-page form, .register-page form, .update form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-page form input, .register-page form input, .update form input {
+    background: #181926;
+    border: none;
+    border: 1px solid #F2B035;
+    color: #F2F2F2;
+    font-family: 'Pangolin', cursive, Georgia, 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    border-radius: 10px;
+    width: 350px;
+    height: 33px;
+    margin-bottom: 12px;
+}
+
+.login-page button, .register-page button, .update button {
+    background-color: #73071B;
+    color: #F2F2F2;
+    font-family: 'Pangolin', cursive, Georgia, 'Times New Roman', Times, serif;
+    width: 160px;
+    height: 38px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 17px;
+}
+
+.login-page a, .register-page a {
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 12px;
+}
+
+/* UPDATE PROFILE */
+#container-update {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+/* REQUESTS AND MYPIZZAS */
+#highlight-requests {
+    background: url(../img/destaque-pizzaiolo-logado.jpg) center center no-repeat;
+    background-size: cover;
+    height: 65vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.requests, .my-pizzas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.order-box, .my-pizzas-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 300px;
+    margin-top: 60px;
+    border: #F2B035 solid 1px;
+    border-radius: 8px;
+    padding: 25px 15px;
+}
+
+.order-box h3, .my-pizzas-box h3 {
+    text-align: center;
+    margin: 10px;
+}
+
+.order-box p, .my-pizzas-box p {
+    margin: 0 7px;
+}
+
+.order-box button, .my-pizzas-box button {
+    background-color: #73071B;
+    color: #F2F2F2;
+    font-family: 'Pangolin', cursive, Georgia, 'Times New Roman', Times, serif;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 12px;
+    margin-left: 80px;
+}
+
+.space {
+    margin-bottom: 50px;
+}
+
+/* FOOTER */
+.adjustment-footer {
+    margin-left: 11px;
+}
+.site-footer .sobre {
+    width: 350px;
+}
+
+.site-footer .icons-footer {
+    margin-top: 20px;
+}
+
+.site-footer
+{
+  background-color: #4d4d4e62;
+  padding:45px 0 20px;
+  font-size:15px;
+  line-height:24px;
+  color: #F2F2F2;
+}
+.site-footer hr
+{
+  border-top-color:#bbb;
+  opacity:0.5
+}
+.site-footer hr.small
+{
+  margin:20px 0
+}
+.site-footer h6
+{
+  color:#F2F2F2;
+  font-size:16px;
+  text-transform:uppercase;
+  margin-top:5px;
+  letter-spacing:2px
+}
+.site-footer a
+{
+  color:#737373;
+}
+.site-footer a:hover
+{
+  color: #F2F2F2;
+  font-weight: 700;
+  text-decoration:none;
+}
+.footer-links
+{
+  padding-left:0;
+  list-style:none
+}
+.footer-links li
+{
+  display:block
+}
+.footer-links a
+{
+  color:#737373
+}
+.footer-links a:active,.footer-links a:focus,.footer-links a:hover
+{
+  color: #F2F2F2;
+  font-weight: 700;
+  text-decoration:none;
+}
+.footer-links.inline li
+{
+  display:inline-block
+}
+.site-footer .social-icons
+{
+  text-align:right
+}
+.site-footer .social-icons a
+{
+  width:40px;
+  height:40px;
+  line-height:40px;
+  margin-left:6px;
+  margin-right:0;
+  border-radius:100%;
+  background-color:#33353d
+}
+.copyright-text
+{
+  margin:0
+}
+
+@media (max-width:767px)
+{
+  .site-footer
+  {
+    padding-bottom:0
+  }
+  .site-footer .copyright-text,.site-footer .social-icons
+  {
+    text-align:center
+  }
+}
+.social-icons
+{
+  padding-left:0;
+  margin-bottom:0;
+  list-style:none
+}
+.social-icons li
+{
+  display:inline-block;
+  margin-bottom:4px
+}
+.social-icons li.title
+{
+  margin-right:15px;
+  text-transform:uppercase;
+  color:#96a2b2;
+  font-weight:700;
+  font-size:13px
+}
+.social-icons a{
+  background-color:#eceeef;
+  color:#818a91;
+  font-size:16px;
+  display:inline-block;
+  line-height:44px;
+  width:44px;
+  height:44px;
+  text-align:center;
+  margin-right:8px;
+  border-radius:100%;
+  -webkit-transition:all .2s linear;
+  -o-transition:all .2s linear;
+  transition:all .2s linear
+}
+.social-icons a:active,.social-icons a:focus,.social-icons a:hover
+{
+  color:#fff;
+  background-color:#29aafe
+}
+.social-icons.size-sm a
+{
+  line-height:34px;
+  height:34px;
+  width:34px;
+  font-size:14px
+}
+.social-icons a.facebook:hover
+{
+  background-color:#3b5998
+}
+.social-icons a.twitter:hover
+{
+  background-color:#00aced
+}
+.social-icons a.linkedin:hover
+{
+  background-color:#007bb6
+}
+.social-icons a.dribbble:hover
+{
+  background-color:#ea4c89
+}
+@media (max-width:767px)
+{
+  .social-icons li.title
+  {
+    display:block;
+    margin-right:0;
+    font-weight:600
+  }
+}
+
+
+/* GENERAL RESPONSIVE */
+@media screen and (max-width:399px) {
+    #container-quality h2, #container-delivery h2, #container-application h2 {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .screen {
+        width: 200px;
+    }
+}
+@media screen and (max-width: 584px) {
+    .product-identification {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .cart-product-title {
+      margin-top: 6px;
+    }
+  
+    .product-qtd-input {
+      display: block;
+      margin: 0 auto;
+    }
+  
+    .remove-product-button {
+      display: block;
+      margin: 8px auto 0;
+    }
+
+    .rules p {
+        width: 400px;
+    }
+}
+  
+@media screen and (min-width:650px) {
+
+    #container-team h2 {
+        margin: 40px 0;
+    }
+    
+    .team {
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        flex-direction: row;
+        gap: 50px;
+        max-width: 879px;
+        margin: 0 auto;
+    }
+
+    #container-team img {
+        width: 230px;
+    }
+
+    #container-history {
+        margin: 50px 0;
+    }
+    
+    #container-history img {
+        width: 400px;
+    }
+    
+    #container-history h2 {
+        margin: 35px 0;
+    }
+
+    #container-history p {
+        width: 480px;
+        margin: 0 ;
+    }
+
+    #container-fillings h3 {
+        margin: 25px 0;
+    }
+    
+    .pasta, .sauces, .fillings {
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        flex-direction: row;
+        gap: 50px;
+        max-width: 879px;
+        margin: 0 auto;
+    }
+    
+    .name form {
+        margin-bottom: 40px;
+    }
+    
+    .name form label {
+        margin-right: 320px;
+        margin-bottom: 10px;
+    }
+    
+    .name form input {
+        width: 450px;
+        height: 30px;
+        margin-bottom: 10px;
+    }
+    
+    .name p {
+        margin-bottom: 12px;
+    }
+
+    
+    #container-login h1, #container-register h1 {
+        margin-bottom: 15px;
+    }
+    
+    .login-page, .register-page {
+        width: 600px;
+        max-width: 6000px;
+        padding: 32px 17px;
+    }
+}
+
+@media screen and (min-width:700px) {
+    #food-menu h5 {
+        font-size: 1.1rem
+    }
+
+    #food-menu .menu-alignment {
+        gap: 55px;
+    }
+    
+    #container-quality img, #container-delivery .deliveryman {
+        width: 370px;
+        margin-bottom: 33px;
+    }
+    
+    #container-quality h2, #container-delivery h2, #container-application h2 {
+        margin-bottom: 14px;
+    }
+    
+    #container-quality p {
+        width: 450px;
+    }
+    
+    #container-application .screen {
+        width: 390px;
+        margin: 15px 0;
+    }
+    
+    #container-application p  {
+        width: 450px;
+        margin: 0 25px;
+    }
+
+    #container-contact .contact {
+        flex-direction: row;
+        margin: 40px 0;
+        gap: 60px;
+    }
+    
+    #container-contact h2, #container-feedback h2 {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.4rem;
+    }
+    
+    .icons-contact {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .icons-contact img {
+        width: 110px;
+    }
+
+    .rules p {
+        width: 550px;
+    }
+
+    .order-box, .my-pizzas-box {
+        flex-direction: row;
+        width: 600px;
+        padding: 30px 20px;
+    }
+
+    .order-box img, .my-pizzas-box img {
+        width: 100px;
+    }
+    
+    .order-box h3, .my-pizzas-box h3 {
+        margin: 10px;
+    }
+    
+    .order-box p, .my-pizzas-box h3 {
+        width: 300px;
+        margin: 0px;
+        margin-left: 50px;
+    }
+    
+    .order-box button, .my-pizzas-box h3 {
+        margin-top: 20px;
+        margin-left: 130px;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .limitador {
+        max-width: 3000px;
+    }
+
+    .cart-table {
+        width: 50%;
+        margin: 0 auto;
+      }
+
+    .pizzas-popular, .candy-popular, .pizzas, .drinks, .candys {
+        justify-content: space-evenly;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .pizza-box, .candy-box, .pizzas-box, .drinks-box, .candys-box {
+        width: 300px;
+        padding: 30px 70px;
+    }
+
+    .pizzas-popular img, .candy-popular img, .pizzas img, .drinks img, .candys img {
+        width: 250px;
+    }
+
+    #container-pizzas-popular h2, #container-candy-popular h2, #container-pizzas, #container-drinks {
+        margin-bottom: 25px;
+    }
+    
+    .pizza-box, .candy-box, .pizzas-box, .drinks-box, .candys-box {
+        margin-bottom: 22px;
+    }
+
+    #container-team img {
+        width: 230px;
+    }
+
+    #container-history {
+        margin: 50px 0;
+    }
+
+    .history {
+        flex-direction: row;
+        gap: 20px;
+    }
+    
+    #container-history img {
+        width: 370px;
+    }
+    
+    #container-history h2 {
+        margin-bottom: 7px;
+    }
+
+    #container-history p {
+        width: 460px;
+        margin: 0 ;
+    }
+
+    #container-fillings h3 {
+        margin: 30px 0;
+    }
+    
+    .pasta, .sauces, .fillings {
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        flex-direction: row;
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .average {
+        margin-left: 60px;
+    }
+    
+    .name form label {
+        margin-right: 430px;
+        margin-bottom: 10px;
+    }
+    
+    .name form input {
+        width: 560px;
+        height: 40px;
+        margin-bottom: 10px;
+    }
+    
+}
+
+@media screen and (min-width: 900px) {
+    nav h2 {
+        display: none
+    }
+
+    .menu {
+        display: flex;
+    }
+
+    .special {
+        width: 160px;
+    }
+
+    .menu li {
+        width: 30%;
+    }
+
+    nav {
+        width: 52%;
+    }
+
+    #food-menu .menu-alignment {
+        gap: 70px;
+    }
+
+    #container-quality, #container-delivery {
+        flex-direction: row;
+        gap: 20px;
+        margin: 60px 0;
+    }
+
+    .icons-delivery {
+    margin-bottom: 20px;
+}
+
+    .icons-delivery img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+    #container-application {
+        flex-direction: row;
+        margin: 50px 0;
+        padding: 10px;
+    }
+    
+
+    #container-application h6 {
+        text-align: left;
+        margin-left: 20px;
+        margin-top: 20px;
+    }
+
+    #container-contact .contact {
+        gap: 120px;
+    }
+
+    #container-feedback .feedbacks {
+        flex-direction: row;
+        gap: 50px;
+        flex-wrap: wrap;
+    }
+
+    .history {
+        gap: 30px;
+    }
+    #container-rules h4 {
+        text-align: center;
+        margin: 22px 0;
+    }
+
+    .site-footer .big-screen {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 50px;
+        margin-bottom: 20px;
+    }
+
+    .site-footer .icons-footer {
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+
+    .order-box, .my-pizzas-box {
+        width: 700px;
+    }
+
+    .order-box img, .my-pizzas-box img {
+        width: 110px;
+        margin-right: 60px;
+    }
+}
+
+@media screen and (min-width:1310px) {
+    html{
+        font-size: 18px;
+    }
+
+    .special2 {
+        width: 160px;
+    }
+
+    #food-menu .menu-alignment {
+        gap: 100px;
+    }
+
+    #container-quality img, #container-delivery .deliveryman {
+        width: 420px;
+        margin-bottom: 40px;
+    }
+    
+    #container-quality h2, #container-delivery h2, #container-application h2 {
+        margin-bottom: 20px;
+    }
+
+    #container-quality, #container-delivery {
+        gap: 60px;
+    }
+
+    #container-application {
+        gap: 60px;
+    }
+
+    #container-quality p, #container-application p {
+        width: 500px;
+    }
+
+    .pizzas-popular, .candy-popular, .pizzas, .drinks, .candys {
+        max-width: 1150px;
+        margin: 0 auto;
+    }
+
+    #container-application h6 {
+        margin-left: 25px;
+        margin-top: 25px;
+    }
+
+    #container-contact .contact {
+        gap: 130px;
+    }
+
+    #container-feedback .feedbacks {
+        gap: 70px;
+    }
+
+    .feedback-box p {
+        max-width: 280px;
+        margin-bottom: 30px;
+    }
+
+    #container-team h2 {
+        margin: 55px 0;
+    }
+    
+    .team {
+        gap: 80px;
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    #container-team img {
+        width: 250px;
+    }
+
+    #container-history {
+        margin: 60px 0;
+    }
+
+    .history {
+        flex-direction: row;
+        gap: 60px;
+    }
+    
+    #container-history img {
+        width: 430px;
+    }
+    
+    #container-history h2 {
+        margin-bottom: 10px;
+    }
+
+    #container-history p {
+        width: 550px;
+        margin: 0 ;
+    }
+
+    .rules p {
+        width: 600px;
+    }
+
+    .pasta, .sauces, .fillings {
+        gap: 30px;
+        max-width: 1200px;
+    }
+
+    .order-box, .my-pizzas-box {
+        width: 800px;
+    }
+
+    .order-box img, .my-pizzas-box img {
+        width: 130px;
+        margin-right: 80px;
+    }
+    
+    .order-box h3, .my-pizzas-box h3 {
+        margin: 15px;
+    }
+    
+    .order-box p, .my-pizzas-box p {
+        width: 370px;
+    }
+    
+    .order-box button {
+        margin-left: 150px;
+    }
+
+    .my-pizzas-box button {
+        margin-left: 110px;
+    }
+}
+
+@media screen and (min-width:1496px) {
+    #container-quality img, #container-delivery .deliveryman {
+        width: 450px;
+    }
+    
+    #container-quality h2, #container-delivery h2, #container-application h2 {
+        margin-bottom: 30px;
+    }
+
+    #container-quality, #container-delivery {
+        gap: 70px;
+    }
+
+    #container-application {
+        gap: 75px;
+        padding: 30px;
+    }
+
+    #container-quality p, #container-application p {
+        width: 500px;
+    }
+
+    #container-application h6 {
+        margin-left: 25px;
+        margin-top: 25px;
+    }
+
+    #container-contact .contact {
+        gap: 130px;
+    }
+
+    #container-feedback .feedbacks {
+        gap: 70px;
+    }
+
+    .feedback-box p {
+        max-width: 280px;
+        margin-bottom: 30px;
+    }
+
+    .team {
+        gap: 90px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    #container-team img {
+        width: 270px;
+    }
+
+    #container-history img {
+        width: 470px;
+    }
+
+    .history {
+        flex-direction: row;
+        gap: 80px;
+    }
+
+}
