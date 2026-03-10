@@ -29,6 +29,9 @@ Bem vindo(a)! Este site está sendo desenvolvido com o objetivo de representar u
 
 **Link do figma:** <i>[clique aqui](https://www.figma.com/file/cTKmShxHOqdVNfJ2HXuXdy/Brasa-Divina?type=design&node-id=0-1&mode=design&t=SqNi0tQ5AT8dLeuo-0) <br>
 **Link do site:** <i>[em breve]() 
+<br>
+
+###
 
 <h2>🤝🏾 Equipe de desenvolvimento:</h2>
 
