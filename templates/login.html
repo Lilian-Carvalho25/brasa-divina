@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Brasa Divina - Login </title>
+    <link rel="shortcut icon" href="../static/img/icon-brasa.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+
+    <header>
+
+        <div class="limitador">
+            <a href="{{ url_for('main.home') }}"><img src="../static/img/Logo-brasa_divina.svg" alt="Logo brasa divina" class="logo"></a>
+            <nav>
+                <h2><a href="" class="icone"> <img src="../static/img/icon-menu.svg" alt=""> </a></h2>
+                <ul class="menu">
+                    <li><a href="{{ url_for('main.home') }}">Home</a></li>
+                    <li><a href="{{ url_for('main.sobre') }}" class="special2">Sobre nós</a></li>
+                    <li><a href="assemblePizza.html" class="special">Monte sua pizza</a></li>
+                    <li><a class="cta" href="#google"><img src="../static/img/icon-carrinho.svg" alt=""></a>
+                        <div id="google" class="modaloverlay">
+                            <div class="modal">
+                                <a href="#close" class="close">&times;</a>
+                                <div>
+                                    <section class="container normal-section">
+                                        <h2 class="section-title">Carrinho</h2>
+
+                                        <table class="cart-table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="table-head-item first-col">Item</th>
+                                                    <th class="table-head-item second-col">Preço</th>
+                                                    <th class="table-head-item third-col">Quantidade</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                            </tbody>
+
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="3" class="cart-total-container">
+                                                        <strong>Total</strong>
+                                                        <span>R$0,00</span>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+
+                                        <button type="button" class="purchase-button">Finalizar Compra</button>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="container-login">
+            <div class="login-page">
+                <h1>Olá! Bem vindo(a) de volta!</h1>
+                    <form action="{{ url_for('main.login') }}" method="post">
+                      <div class="alignment-inputs">
+                          <label for="email">E-mail:</label>
+                          <input type="email" name="email" id="email-login">
+                      </div>
+
+                      <div class="alignment-inputs">
+                        <label for="senha">Senha:</label>
+                        <input type="password" name="senha" id="senha-login">
+                    </div>
+                    <button type="submit" name="button-login" class="login-register">Entrar</button>
+                    <a href="{{ url_for('main.cadastro') }}">Não tem cadastro? Faça agora mesmo!</a>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </form>
+            </div>
+        </section>
+    </main>
+</body>
+
+<script src="../static/js/menu.js"></script>
+</html>

@@ -13,12 +13,12 @@
     <header>
 
         <div class="limitador">
-            <a href="index.html"><img src="../static/img/Logo-brasa_divina.svg" alt="Logo brasa divina" class="logo"></a>
+            <a href="{{ url_for('main.home') }}"><img src="../static/img/Logo-brasa_divina.svg" alt="Logo brasa divina" class="logo"></a>
             <nav>
                 <h2><a href="" class="icone"> <img src="../static/img/icon-menu.svg" alt=""> </a></h2>
                 <ul class="menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="aboutUs.html" class="special2">Sobre nós</a></li>
+                    <li><a href="{{ url_for('main.home') }}">Home</a></li>
+                    <li><a href="{{ url_for('main.sobre') }}" class="special2">Sobre nós</a></li>
                     <li><a href="assemblePizza.html" class="special">Monte sua pizza</a></li>
                 </ul>
             </nav>
@@ -29,23 +29,21 @@
         <section id="container-register">
             <div class="register-page">
                 <h1>Seja bem vindo(a)!</h1>
-                <form action="" method="post">
+                <form action="{{ url_for('main.cadastro') }}" method="POST">
                     <div class="alignment-inputs">
                         <label for="name">Nome:</label>
-                        <input type="text" name="name" id="name-register">
+                        <input type="text" name="nome" id="name-register" required>
                     </div>
-
                     <div class="email-and-password">
                         <div class="alignment-inputs">
                             <label for="email">E-mail:</label>
-                            <input type="email" name="email" id="email-register">
+                            <input type="email" name="email" id="email-register" required>
                         </div>
                         <div class="alignment-inputs">
                             <label for="senha">Senha:</label>
-                            <input type="password" name="senha" id="senha-register">
+                            <input type="password" name="senha" id="senha-register" required>
                         </div>
                     </div>
-
                     <div class="cep-and-cmp">
                         <div class="alignment-inputs">
                             <label for="cep">CEP:</label>
@@ -57,7 +55,14 @@
                         </div>
                     </div>
                     <button type="submit" name="button-register" class="login-register">Cadastrar</button>
-                    <a href="login.html">Já tem cadastro? Faça login agora mesmo!</a>
+                    <a href="#">Já tem cadastro? Faça login agora mesmo!</a>
+                                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                                    {% if messages %}
+                                                        {% for category, message in messages %}
+                                                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                {% endwith %}
                 </form>
             </div>
         </section>
