@@ -90,12 +90,62 @@ function renderCandys() {
                 <h5 class="product-price">R$ ${candy.preco},00</h5>
             </div>
             <p>${candy.resumo}</p>
-            <button type="submit" class="button-add-cart" onclick="addedToCart()">Adicionar ao carrinho</button>
+            <button type="submit" class="button-add-cart"
+                onclick="addedToCart()"
+                data-title="${candy.titulo}"
+                data-price="${candy.preco}"
+                data-image="${candy.imagem}"
+            >Adicionar ao carrinho</button>
         `;
         drinksDiv.appendChild(article);
     });
     container.innerHTML = '';
     container.appendChild(drinksDiv);
+
+    const addToCartButtons = container.getElementsByClassName('button-add-cart');
+    for (let i = 0; i < addToCartButtons.length; i++) {
+        addToCartButtons[i].addEventListener('click', function(event) {
+            const btn = event.target;
+            if (btn.dataset && btn.dataset.title) {
+                const productImage = '../static/img/' + btn.dataset.image;
+                const productName = btn.dataset.title;
+                const productPrice = 'R$ ' + btn.dataset.price + ',00';
+
+                const productsCartNames = document.getElementsByClassName("cart-product-title");
+                for (var j = 0; j < productsCartNames.length; j++) {
+                    if (productsCartNames[j].innerText === productName) {
+                        productsCartNames[j].parentElement.parentElement.getElementsByClassName("product-qtd-input")[0].value++;
+                        updateTotal();
+                        return;
+                    }
+                }
+
+                let newCartProduct = document.createElement("tr");
+                newCartProduct.classList.add("cart-product");
+                newCartProduct.innerHTML =
+                    `
+                      <td class="product-identification">
+                        <img src="${productImage}" alt="${productName}" class="cart-product-image">
+                        <strong class="cart-product-title">${productName}</strong>
+                      </td>
+                      <td>
+                        <span class="cart-product-price">${productPrice}</span>
+                      </td>
+                      <td>
+                        <input type="number" value="1" min="0" class="product-qtd-input">
+                        <button type="button" class="remove-product-button">Remover</button>
+                      </td>
+                    `;
+                const tableBody = document.querySelector(".cart-table tbody");
+                tableBody.append(newCartProduct);
+                updateTotal();
+                newCartProduct.getElementsByClassName("remove-product-button")[0].addEventListener("click", removeProduct);
+                newCartProduct.getElementsByClassName("product-qtd-input")[0].addEventListener("change", checkIfInputIsNull);
+            } else {
+                addProductToCart(event);
+            }
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', renderCandys);

@@ -14,7 +14,7 @@
             <nav>
                 <h2><a href="" class="icone"> <img src="../static/img/icon-menu.svg" alt=""> </a></h2>
                 <ul class="menu">
-                    <li><a href="?logout"><img src="../static/img/icon-sair.svg" alt="usuário" width="30px"  class="exit"></a></li>
+                    <li><a href="{{ url_for('main.logout') }}"><img src="../static/img/icon-sair.svg" alt="usuário" width="30px"  class="exit"></a></li>
                 </ul>
             </nav>
         </div>
@@ -51,54 +51,28 @@
 
     <section id="container-requests">
         <div class="requests">
-            <article class="order-box">
-                <img src="../static/img/icon-pedido-cliente.svg" alt="ícone pedido">
-                <div>
-                    <h3>Valeska Marques</h3>
-                    <p><span>Pizza:</span> Calabacon e mussarela. <span>Sobremesa:</span> Banana e cookies. <span>Bebida:</span> R. de Cola</p>
-                    <button type="submit" name="finalizar-pedido" onclick="finalizeOrder()">Finalizar pedido</button>
-                </div>
-            </article>
-
-            <article class="order-box">
-                <img src="../static/img/icon-pedido-cliente.svg" alt="ícone pedido">
-                <div>
-                    <h3>Valeska Marques</h3>
-                    <p><span>Pizza:</span> Calabacon e mussarela. <span>Sobremesa:</span> Banana e cookies. <span>Bebida:</span> R. de Cola</p>
-                    <button type="submit" name="finalizar-pedido" onclick="finalizeOrder()">Finalizar pedido</button>
-                </div>
-            </article>
-
-            <article class="order-box">
-                <img src="../static/img/icon-pedido-cliente.svg" alt="ícone pedido">
-                <div>
-                    <h3>Valeska Marques</h3>
-                    <p><span>Pizza:</span> Calabacon e mussarela. <span>Sobremesa:</span> Banana e cookies. <span>Bebida:</span> R. de Cola</p>
-                    <button type="submit" name="finalizar-pedido" onclick="finalizeOrder()">Finalizar pedido</button>
-                </div>
-            </article>
-
-            <article class="order-box">
-                <img src="../static/img/icon-pedido-cliente.svg" alt="ícone pedido">
-                <div>
-                    <h3>Valeska Marques</h3>
-                    <p><span>Pizza:</span> Calabacon e mussarela. <span>Sobremesa:</span> Banana e cookies. <span>Bebida:</span> R. de Cola</p>
-                    <button type="submit" name="finalizar-pedido" onclick="finalizeOrder()">Finalizar pedido</button>
-                </div>
-            </article>
-
-            <article class="order-box space">
-                <img src="../static/img/icon-pedido-cliente.svg" alt="ícone pedido">
-                <div>
-                    <h3>Valeska Marques</h3>
-                    <p><span>Pizza:</span> Calabacon e mussarela. <span>Sobremesa:</span> Banana e cookies. <span>Bebida:</span> R. de Cola</p>
-                    <button type="submit" name="finalizar-pedido" onclick="finalizeOrder()">Finalizar pedido</button>
-                </div>
-            </article>
+            {% if pedidos and pedidos|length > 0 %}
+                {% for pedido in pedidos %}
+                    <article class="order-box" data-pedido-id="{{ pedido.id }}">
+                        <img src="../static/img/icon-pedido-cliente.svg" alt="ícone pedido">
+                        <div>
+                            <h3>{{ pedido.nome_usuario }}</h3>
+                            <p>
+                                {% for produto in pedido.produtos %}
+                                    <span>Item:</span> {{ produto.nome }} ({{ produto.quantidade }})<br>
+                                {% endfor %}
+                            </p>
+                            <button type="button" class="finalizar-pedido-btn">Finalizar pedido</button>
+                        </div>
+                    </article>
+                {% endfor %}
+            {% else %}
+                <p>Nenhum pedido encontrado.</p>
+            {% endif %}
         </div>
     </section>
 
-    <footer class="site-footer">
+    <footer class="site-footer" style="margin-top: 1rem;">
         <div class="container">
             <div class="row big-screen">
                 <div class="col-sm-12 col-md-6 adjustment-footer">
@@ -145,5 +119,34 @@
 </body>
 <script src="../static/js/menu.js"></script>
 <script src="../static/js/store.js"></script>
-<script src="../static/js/order.js"></script>
+<script>
+
+// Função para finalizar/excluir pedido
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.finalizar-pedido-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const article = btn.closest('.order-box');
+            const pedidoId = article.getAttribute('data-pedido-id');
+            if (confirm('Tem certeza que deseja finalizar este pedido?')) {
+                fetch(`/excluir-pedido/${pedidoId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        article.remove();
+                        if (document.querySelectorAll('.order-box').length === 0) {
+                            document.querySelector('.requests').innerHTML = '<p>Nenhum pedido encontrado.</p>';
+                        }
+                    } else {
+                        alert('Erro ao finalizar pedido: ' + (data.message || 'Tente novamente.'));
+                    }
+                })
+                .catch(() => alert('Erro ao finalizar pedido. Tente novamente.'));
+            }
+        });
+    });
+});
+</script>
 </html>

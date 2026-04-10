@@ -57,8 +57,12 @@
                         </div>
                     </li>
                     <div class="container-buttons">
-                        <a href="{{ url_for('main.login') }}"><button class="login">Entrar</button></a>
-                        <a href="{{ url_for('main.cadastro') }}"><button class="register">Cadastre-se</button></a>
+                        {% if session['user_id'] %}
+                            <a href="{{ url_for('main.logout') }}"><button class="logout login">Sair</button></a>
+                        {% else %}
+                            <a href="{{ url_for('main.login') }}"><button class="login">Entrar</button></a>
+                            <a href="{{ url_for('main.cadastro') }}"><button class="register">Cadastre-se</button></a>
+                        {% endif %}
                     </div>
                 </ul>
             </nav>

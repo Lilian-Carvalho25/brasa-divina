@@ -87,20 +87,53 @@ function addProductToCart(event) {
 
 function makePurchase() {
   if (totalAmount === "0,00") {
-    alert("Seu carrinho está vazio!")
-  } else {   
-    alert(
-      `
-        Obrigado pela sua compra!
-        Valor do pedido: R$${totalAmount}\n
-        Lembre-se que o pagamento é efetuado com o entregador(a)!
-        Volte sempre!
-      `
-    )
-
-    document.querySelector(".cart-table tbody").innerHTML = ""
-    updateTotal()
+    alert("Seu carrinho está vazio!");
+    return;
   }
+
+  // Montar os dados do carrinho
+  const cartProducts = document.getElementsByClassName("cart-product");
+  let produtos = [];
+  for (let i = 0; i < cartProducts.length; i++) {
+    const row = cartProducts[i];
+    const nome = row.getElementsByClassName("cart-product-title")[0].innerText;
+    const imagem = row.getElementsByClassName("cart-product-image")[0].getAttribute("src");
+    const preco = row.getElementsByClassName("cart-product-price")[0].innerText;
+    const quantidade = row.getElementsByClassName("product-qtd-input")[0].value;
+    produtos.push({ nome, imagem, preco, quantidade });
+  }
+
+  // Buscar nome do usuário da página (opcional, pode ser melhorado)
+  let nome_usuario = null;
+  try {
+    nome_usuario = window.sessionUserName || null;
+  } catch (e) {}
+
+  fetch('/salvar-pedido', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      produtos: JSON.stringify(produtos),
+      nome_usuario: nome_usuario || 'Usuário',
+    }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(
+          `Obrigado pela sua compra!\nValor do pedido: R$${totalAmount}\nLembre-se que o pagamento é efetuado com o entregador(a)!\nVolte sempre!`
+        );
+        document.querySelector(".cart-table tbody").innerHTML = "";
+        updateTotal();
+      } else {
+        alert("Erro ao finalizar pedido: " + (data.message || 'Tente novamente.'));
+      }
+    })
+    .catch(() => {
+      alert("Erro ao finalizar pedido. Tente novamente.");
+    });
 }
 
 // Atualizar o valor total do carrinho
