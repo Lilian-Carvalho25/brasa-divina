@@ -10,7 +10,7 @@
 //         icone.innerHTML = "&times;";
 //     } else {
 //         const imgElement = document.createElement("img");
-//         imgElement.src = "imagens/icon-menu.svg";
+//         imgElement.src = "../static/img/icon-menu.svg";
 //     }
 // });
 
@@ -26,10 +26,10 @@ botao.addEventListener("click", function(event){
         icone.innerHTML = ""; 
 
         const imgElement = document.createElement("img");
-        imgElement.src = "imagens/icon-menu.svg";
+        imgElement.src = "../static/img/icon-menu.svg";
 
         icone.appendChild(imgElement);
     } else {
-        imgElement.src = "imagens/icon-menu.svg";
+        imgElement.src = "../static/img/icon-menu.svg";
     }
 });

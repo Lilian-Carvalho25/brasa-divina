@@ -20,7 +20,7 @@
                 <ul class="menu">
                     <li><a href="{{ url_for('main.home') }}">Home</a></li>
                     <li><a href="{{ url_for('main.sobre') }}" class="special2">Sobre nós</a></li>
-                    <li><a href="assemblePizza.html" class="special">Monte sua pizza</a></li>
+                    <li><a href="{{ url_for('main.monte_sua_pizza') }}" class="special">Monte sua pizza</a></li>
                     <li><a class="cta" href="#google"><img src="../static/img/icon-carrinho.svg" alt=""></a>
                         <div id="google" class="modaloverlay">
                             <div class="modal">
@@ -78,19 +78,19 @@
             <h3>Selecione a categoria desejada:</h3>
             <div class="menu-alignment">
                 <article class="icons-menu">
-                    <a href="pizzas.html">
+                    <a href="{{ url_for('main.pizzas') }}">
                         <img src="../static/img/icon-pizza.svg" alt="ícone de pizza">
                     </a>
                     <h5>Pizzas</h5>
                 </article>
                 <article class="icons-menu">
-                    <a href="drinks.html">
+                    <a href="{{ url_for('main.bebidas') }}">
                         <img src="../static/img/icon-bebidas.svg" alt="ícone de copo">
                     </a>
                     <h5>Bebidas</h5>
                 </article>
                 <article class="icons-menu">
-                    <a href="candys.html">
+                    <a href="{{ url_for('main.doces') }}">
                         <img src="../static/img/icon-sobremesas.svg" alt="ícone sobremesa">
                     </a>
                     <h5>Doces</h5>
@@ -271,16 +271,16 @@
                     <ul class="footer-links">
                         <li><a href="{{ url_for('main.home') }}">Home</a></li>
                         <li><a href="{{ url_for('main.sobre') }}">Sobre nós</a></li>
-                        <li><a href="assemblePizza.html">Monte sua pizza</a></li>
+                        <li><a href="{{ url_for('main.monte_sua_pizza') }}">Monte sua pizza</a></li>
                     </ul>
                 </div>
 
                 <div class="col-xs-6 col-md-3 adjustment-footer">
                     <h6>Categorias</h6>
                     <ul class="footer-links">
-                        <li><a href="pizzas.html">Pizzas</a></li>
-                        <li><a href="drinks.html">Bebidas</a></li>
-                        <li><a href="candys.html">Doces</a></li>
+                        <li><a href="{{ url_for('main.pizzas') }}">Pizzas</a></li>
+                        <li><a href="{{ url_for('main.bebidas') }}">Bebidas</a></li>
+                        <li><a href="{{ url_for('main.doces') }}">Doces</a></li>
                     </ul>
                 </div>
             </div>

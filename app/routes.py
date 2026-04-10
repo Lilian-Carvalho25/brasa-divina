@@ -12,6 +12,22 @@ def home():
 def sobre():
     return render_template('aboutUs.html')
 
+@main.route('/monte-sua-pizza')
+def monte_sua_pizza():
+    return render_template('assemblePizza.html')
+
+@main.route('/pizzas')
+def pizzas():
+    return render_template('pizzas.html')
+
+@main.route('/bebidas')
+def bebidas():
+    return render_template('drinks.html')
+
+@main.route('/doces')
+def doces():
+    return render_template('candys.html')
+
 @main.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
@@ -26,7 +42,6 @@ def cadastro():
         novo_user = User(nome=nome, email=email, senha=senha, cep=cep, complemento=complemento)
         db.session.add(novo_user)
         db.session.commit()
-        flash('Cadastro realizado com sucesso!', 'success')
         return redirect(url_for('main.logged_user'))
     return render_template('register.html')
 
@@ -42,9 +57,12 @@ def login():
         senha = request.form['senha']
         user = User.query.filter_by(email=email).first()
         if user and user.senha == senha:
-            flash('Login realizado com sucesso!', 'success')
             return redirect(url_for('main.logged_user'))
         else:
             flash('E-mail ou senha inválidos!', 'danger')
             return redirect(url_for('main.login'))
     return render_template('login.html')
+
+@main.route('/pedidos')
+def pedidos():
+    return render_template('requests.html')
