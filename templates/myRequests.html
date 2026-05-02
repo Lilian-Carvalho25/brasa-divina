@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brasa Divina - Pedidos</title>
+    <link rel="shortcut icon" href="../static/img/icon-brasa.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body>
+<header>
+        <div class="limitador">
+            <a href=""><img src="../static/img/Logo-brasa_divina.svg" alt="Logo brasa divina" class="logo"></a>
+            <nav>
+                <h2><a href="" class="icone"> <img src="../static/img/icon-menu.svg" alt=""> </a></h2>
+                <ul class="menu">
+                    <li><a href="{{ url_for('main.logout') }}"><img src="../static/img/icon-sair.svg" alt="usuário" width="30px"  class="exit"></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<main>
+    <section id="highlight-requests">
+        <h1>Visualização de pedidos</h1>
+    </section>
+
+    <section class="food-menu">
+            <h3>Selecione a área desejada:</h3>
+            <div class="menu-alignment">
+                <article class="icons-menu">
+                    <a href="myPizzas.php">
+                        <img src="../static/img/icon-minhas-pizzas.svg" alt="ícone de pizza">
+                    </a>
+                    <h5>Minhas pizzas</h5>
+                </article>
+                <article class="icons-menu">
+                    <a href="{{ url_for('main.meus_pedidos') }}">
+                        <img src="../static/img/icon-pedido.svg" alt="ícone de caderneta">
+                    </a>
+                    <h5>Pedidos</h5>
+                </article>
+                <article class="icons-menu">
+                    <a href="updateProfile.php">
+                        <img src="../static/img/icon-atualizar.svg" alt="ícone de usuário">
+                    </a>
+                    <h5>Atualizar perfil</h5>
+                </article>
+            </div>
+        </section>
+
+    <section id="container-my-requests">
+        <div class="tracking-panel">
+            {% if current_order %}
+                <h2>Seu pedido em acompanhamento</h2>
+                <p class="subtitle">Acompanhe a preparação do seu pedido em tempo real. Assim que ele avançar de etapa, a linha do tempo será atualizada.</p>
+                <div class="timeline">
+                    {% for step in status_steps %}
+                        <div class="timeline-step {% if loop.index0 < active_step_index %}completed{% elif loop.index0 == active_step_index %}active{% endif %}">
+                            <div class="timeline-point"></div>
+                            <div class="timeline-content">
+                                <h4 class="timeline-title">{{ step.title }}</h4>
+                                <p class="timeline-description">{{ step.description }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="current-order-summary">
+                    <div><strong>Pedido nº:</strong> {{ current_order.id }}</div>
+                    <div><strong>Data:</strong> {{ current_order.data_criacao.strftime('%d/%m/%Y %H:%M') }}</div>
+                    <div><strong>Status atual:</strong> {{ current_order.status.replace('_', ' ')|title }}</div>
+                    <div><strong>Itens do pedido:</strong></div>
+                    <div>
+                        {% for produto in current_order.produtos %}
+                            <p>{{ produto.nome }} — {{ produto.quantidade }}x</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <p class="empty-orders">Não há pedidos ativos no momento. Faça um novo pedido para acompanhar o status aqui.</p>
+            {% endif %}
+        </div>
+
+        <div class="order-history">
+            <h2>Histórico de pedidos</h2>
+            {% if previous_orders %}
+                <div class="order-cards">
+                    {% for pedido in previous_orders %}
+                        <article class="order-card">
+                            <div class="order-card-header">
+                                <span>Pedido #{{ pedido.id }}</span>
+                                <strong>{{ pedido.data_criacao.strftime('%d/%m/%Y %H:%M') }}</strong>
+                            </div>
+                            <div class="order-card-body">
+                                <p><strong>Status:</strong> <span class="order-status">{{ pedido.status.replace('_', ' ')|title }}</span></p>
+                                <p><strong>Itens:</strong></p>
+                                {% for produto in pedido.produtos %}
+                                    <p>{{ produto.nome }} — {{ produto.quantidade }}x</p>
+                                {% endfor %}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-orders">Ainda não existem pedidos anteriores.</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <footer class="site-footer" style="margin-top: 1rem;">
+        <div class="container">
+            <div class="row big-screen">
+                <div class="col-sm-12 col-md-6 adjustment-footer">
+                    <h6>Sobre</h6>
+                    <p class="text-justify sobre">A Brasa Divina é uma pizzaria que se destaca pelos seus rigorosos padrões de qualidade. Desde a seleção cuidadosa dos ingredientes até a meticulosa preparação das pizzas, tudo é feito com dedicação e excelência.</p>
+                </div>
+
+                <div class="col-xs-6 col-md-3 adjustment-footer">
+                    <h6>Principais</h6>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('main.home') }}">Home</a></li>
+                        <li><a href="{{ url_for('main.sobre') }}">Sobre nós</a></li>
+                        <li><a href="{{ url_for('main.monte_sua_pizza') }}">Monte sua pizza</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-6 col-md-3 adjustment-footer">
+                    <h6>Categorias</h6>
+                    <ul class="footer-links">
+                        <li><a href="{{ url_for('main.pizzas') }}">Pizzas</a></li>
+                        <li><a href="{{ url_for('main.bebidas') }}">Bebidas</a></li>
+                        <li><a href="{{ url_for('main.doces') }}">Doces</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4 col-sm-6 col-xs-12 icons-footer">
+                    <ul class="social-icons">
+                        <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</main>
+</body>
+<script src="../static/js/menu.js"></script>
+<script src="../static/js/store.js"></script>
+
+</html>

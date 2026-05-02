@@ -57,12 +57,26 @@
                         <img src="../static/img/icon-pedido-cliente.svg" alt="ícone pedido">
                         <div>
                             <h3>{{ pedido.nome_usuario }}</h3>
-                            <p>
+                            <p><strong>Pedido:</strong> #{{ pedido.id }} — {{ pedido.data_criacao.strftime('%d/%m/%Y %H:%M') }}</p>
+                            <p><strong>E-mail:</strong> {{ pedido.email_usuario }}</p>
+                            <p><strong>CEP:</strong> {{ pedido.cep or 'Não informado' }} • <strong>Complemento:</strong> {{ pedido.complemento or 'Não informado' }}</p>
+                            <div class="order-items">
                                 {% for produto in pedido.produtos %}
-                                    <span>Item:</span> {{ produto.nome }} ({{ produto.quantidade }})<br>
+                                    <p><span>Item:</span> {{ produto.nome }} ({{ produto.quantidade }})</p>
                                 {% endfor %}
-                            </p>
-                            <button type="button" class="finalizar-pedido-btn">Finalizar pedido</button>
+                            </div>
+                            <p><strong>Status atual:</strong> <span class="pedido-status-text">{{ pedido.status.replace('_', ' ')|title }}</span></p>
+                            <div class="status-update-row">
+                                <label for="status-select-{{ pedido.id }}">Atualizar status:</label>
+                                <select id="status-select-{{ pedido.id }}" class="status-select">
+                                    <option value="realizado" {% if pedido.status == 'realizado' %}selected{% endif %}>Pedido realizado</option>
+                                    <option value="preparando" {% if pedido.status == 'preparando' %}selected{% endif %}>Estamos preparando</option>
+                                    <option value="saiu_entrega" {% if pedido.status == 'saiu_entrega' %}selected{% endif %}>Saiu para entrega</option>
+                                    <option value="entregue" {% if pedido.status == 'entregue' %}selected{% endif %}>Entregue</option>
+                                </select>
+                                <button type="button" class="status-update-btn">Salvar</button>
+                            </div>
+                                <button type="button" class="finalizar-pedido-btn">Finalizar pedido</button>
                         </div>
                     </article>
                 {% endfor %}
@@ -145,6 +159,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch(() => alert('Erro ao finalizar pedido. Tente novamente.'));
             }
+        });
+    });
+
+    document.querySelectorAll('.status-update-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const article = btn.closest('.order-box');
+            const pedidoId = article.getAttribute('data-pedido-id');
+            const select = article.querySelector('.status-select');
+            const novoStatus = select.value;
+            fetch(`/atualizar-status/${pedidoId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: novoStatus })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const statusText = article.querySelector('.pedido-status-text');
+                    statusText.textContent = novoStatus.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
+                    alert('Status atualizado com sucesso!');
+                } else {
+                    alert('Erro ao atualizar status: ' + (data.message || 'Tente novamente.'));
+                }
+            })
+            .catch(() => alert('Erro ao atualizar status. Tente novamente.'));
         });
     });
 });
